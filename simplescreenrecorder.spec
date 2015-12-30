@@ -55,6 +55,7 @@ OpenGL applications, for use with the SimpleScreenRecorder.
 %{__automake}
 
 %configure \
+	CXXFLAGS="%{rpmcxxflags} -fPIC" \
 	--with-qt5 \
 	--with-pulseaudio \
 	--with-jack
