@@ -2,7 +2,7 @@ Summary:	Screen recorder for Linux
 Summary(pl.UTF-8):	Nagrywarka ekranu dla Linuksa
 Name:		simplescreenrecorder
 Version:	0.3.6
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		Applications
 Source0:	https://github.com/MaartenBaert/ssr/archive/%{version}/ssr-%{version}.tar.gz
