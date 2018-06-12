@@ -1,14 +1,13 @@
 Summary:	Screen recorder for Linux
 Summary(pl.UTF-8):	Nagrywarka ekranu dla Linuksa
 Name:		simplescreenrecorder
-Version:	0.3.6
-Release:	3
+Version:	0.3.11
+Release:	1
 License:	GPL v3
 Group:		Applications
 Source0:	https://github.com/MaartenBaert/ssr/archive/%{version}/ssr-%{version}.tar.gz
-# Source0-md5:	3c0dcf288c0cc1b21f4cd2010c73d5ae
+# Source0-md5:	035dcd0a73667d27f890c9ad242d4cf0
 Patch0:		build.patch
-Patch1:		ffmpeg4.patch
 URL:		http://www.maartenbaert.be/simplescreenrecorder/
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	Mesa-libGLU-devel
@@ -17,11 +16,9 @@ BuildRequires:	Qt5Gui-devel
 BuildRequires:	Qt5Widgets-devel
 BuildRequires:	Qt5X11Extras-devel
 BuildRequires:	alsa-lib-devel
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	cmake >= 3.1
 BuildRequires:	ffmpeg-devel
 BuildRequires:	jack-audio-connection-kit-devel
-BuildRequires:	libtool
 BuildRequires:	pulseaudio-devel
 BuildRequires:	qt5-build
 BuildRequires:	qt5-linguist
@@ -49,20 +46,13 @@ OpenGL applications, for use with the SimpleScreenRecorder.
 %prep
 %setup -q -n ssr-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-
-%configure \
-	CXXFLAGS="%{rpmcxxflags} -fPIC" \
-	--with-qt5 \
-	--with-pulseaudio \
-	--with-jack
+%cmake \
+	-DLRELEASE=/usr/bin/lrelease-qt5 \
+	-DWITH_JACK=ON \
+	-DWITH_PULSEAUDIO=ON \
+	-DWITH_QT5=ON
 
 %{__make}
 
@@ -71,8 +61,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-rm $RPM_BUILD_ROOT%{_libdir}/libssr-glinject.la
 
 %find_lang %{name} --with-qm
 
@@ -91,6 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/*/*/apps/simplescreenrecorder*.png
 %{_iconsdir}/hicolor/scalable/apps/simplescreenrecorder*.svg
 %{_desktopdir}/simplescreenrecorder.desktop
+%{_datadir}/appdata/simplescreenrecorder.appdata.xml
 
 %files glinject
 %defattr(644,root,root,755)
