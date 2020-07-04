@@ -1,32 +1,37 @@
+%define		qtver	5.7
 Summary:	Screen recorder for Linux
 Summary(pl.UTF-8):	Nagrywarka ekranu dla Linuksa
 Name:		simplescreenrecorder
-Version:	0.3.11
+Version:	0.4.2
 Release:	1
 License:	GPL v3
 Group:		Applications
 Source0:	https://github.com/MaartenBaert/ssr/archive/%{version}/ssr-%{version}.tar.gz
-# Source0-md5:	035dcd0a73667d27f890c9ad242d4cf0
+# Source0-md5:	c43eb407d13006e0173f087ba5111214
 Patch0:		build.patch
 URL:		http://www.maartenbaert.be/simplescreenrecorder/
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	Mesa-libGLU-devel
-BuildRequires:	Qt5Core-devel >= 5.1.0
-BuildRequires:	Qt5Gui-devel
-BuildRequires:	Qt5Widgets-devel
-BuildRequires:	Qt5X11Extras-devel
+BuildRequires:	Qt5Core-devel >= %{qtver}
+BuildRequires:	Qt5Gui-devel >= %{qtver}
+BuildRequires:	Qt5Widgets-devel >= %{qtver}
+BuildRequires:	Qt5X11Extras-devel >= %{qtver}
 BuildRequires:	alsa-lib-devel
 BuildRequires:	cmake >= 3.1
 BuildRequires:	ffmpeg-devel
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	pulseaudio-devel
-BuildRequires:	qt5-build
-BuildRequires:	qt5-linguist
+BuildRequires:	qt5-build >= %{qtver}
+BuildRequires:	qt5-linguist >= %{qtver}
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXi-devel
+Requires:	Qt5Core >= %{qtver}
+Requires:	Qt5Gui >= %{qtver}
 Requires:	Qt5Gui-platform-xcb
+Requires:	Qt5Widgets >= %{qtver}
+Requires:	Qt5X11Extras >= %{qtver}
 Suggests:	%{name}-glinject = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -79,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/*/*/apps/simplescreenrecorder*.png
 %{_iconsdir}/hicolor/scalable/apps/simplescreenrecorder*.svg
 %{_desktopdir}/simplescreenrecorder.desktop
-%{_datadir}/appdata/simplescreenrecorder.appdata.xml
+%{_datadir}/metainfo/simplescreenrecorder.metainfo.xml
 
 %files glinject
 %defattr(644,root,root,755)
