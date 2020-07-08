@@ -1,3 +1,7 @@
+%ifarch %{ix86} %{x8664} x32
+%define		with_gl		1
+%endif
+
 %define		qtver	5.7
 Summary:	Screen recorder for Linux
 Summary(pl.UTF-8):	Nagrywarka ekranu dla Linuksa
@@ -32,7 +36,9 @@ Requires:	Qt5Gui >= %{qtver}
 Requires:	Qt5Gui-platform-xcb
 Requires:	Qt5Widgets >= %{qtver}
 Requires:	Qt5X11Extras >= %{qtver}
+%if %{with gl}
 Suggests:	%{name}-glinject = %{version}-%{release}
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -55,6 +61,8 @@ OpenGL applications, for use with the SimpleScreenRecorder.
 %build
 %cmake \
 	-DLRELEASE=/usr/bin/lrelease-qt5 \
+	%{cmake_on_off gl WITH_GLINJECT} \
+	%{cmake_on_off gl WITH_OPENGL_RECORDING} \
 	-DWITH_JACK=ON \
 	-DWITH_PULSEAUDIO=ON \
 	-DWITH_QT5=ON
@@ -80,13 +88,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/simplescreenrecorder/output-profiles
 %dir %{_datadir}/simplescreenrecorder/translations
 %{_mandir}/man1/simplescreenrecorder.1*
-%{_mandir}/man1/ssr-glinject.1*
 %{_iconsdir}/*/*/apps/simplescreenrecorder*.png
 %{_iconsdir}/hicolor/scalable/apps/simplescreenrecorder*.svg
 %{_desktopdir}/simplescreenrecorder.desktop
 %{_datadir}/metainfo/simplescreenrecorder.metainfo.xml
 
+%if %{with glinject}
 %files glinject
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ssr-glinject
 %attr(755,root,root) %{_libdir}/libssr-glinject.so
+%{_mandir}/man1/ssr-glinject.1*
+%endif
