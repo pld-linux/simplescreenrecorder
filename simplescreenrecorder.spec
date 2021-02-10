@@ -6,12 +6,12 @@
 Summary:	Screen recorder for Linux
 Summary(pl.UTF-8):	Nagrywarka ekranu dla Linuksa
 Name:		simplescreenrecorder
-Version:	0.4.2
+Version:	0.4.3
 Release:	1
 License:	GPL v3
 Group:		Applications
 Source0:	https://github.com/MaartenBaert/ssr/archive/%{version}/ssr-%{version}.tar.gz
-# Source0-md5:	c43eb407d13006e0173f087ba5111214
+# Source0-md5:	3f8337db93f5a6a3f64525e7249815d6
 Patch0:		build.patch
 URL:		http://www.maartenbaert.be/simplescreenrecorder/
 BuildRequires:	Mesa-libGL-devel
@@ -24,6 +24,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	cmake >= 3.1
 BuildRequires:	ffmpeg-devel
 BuildRequires:	jack-audio-connection-kit-devel
+BuildRequires:	libv4l-devel
 BuildRequires:	pulseaudio-devel
 BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	qt5-linguist >= %{qtver}
