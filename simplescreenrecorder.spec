@@ -28,6 +28,7 @@ BuildRequires:	libv4l-devel
 BuildRequires:	pulseaudio-devel
 BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	qt5-linguist >= %{qtver}
+BuildRequires:	rpmbuild(macros) >= 1.742
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXfixes-devel
